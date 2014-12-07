@@ -1,0 +1,25 @@
+Power<- read.table("C:/Users/pulak.jain/Desktop/study material/exploratory/project1/household_power_consumption.txt", header=TRUE,sep=";", quote="\"")
+DateTime<-paste(Power$Date,Power$Time)
+DateTime1<-strptime(DateTime, format= "%d/%m/%Y %H:%M:%S")
+Power$Global_active_power<-as.numeric(Power$Global_active_power)
+Power$DateTime<-DateTime1
+Power1<-subset(Power,Date<="02/02/2007")
+Power2<-subset(Power1,Date<="2007-02-01")
+#plot1
+hist(Power2$Global_active_power, col="red", xlab="Global active Power(kilowatts)", ylab="Frequency", main="Global Active Power")
+#plot2
+with(Power2,plot(DateTime,Global_active_oower,type="l"))
+#plot3
+with(Power2,plot(DateTime,Sub_metering_1,type="l"))
+points(Power2$DateTime,Power2$Sub_metering_2,type="l",col="red")
+points(Power2$DateTime,Power2$Sub_metering_3,type="l",col="blue")
+legend("right",col=c("red","black","blue"), lwd=c(1,1.5,2),legend=c(submetering_1,submetering_2,submetering_3))
+#plot4
+par(mfrow=c(2,2))
+par(mar=c(1,1,1,1))
+with(Power2,plot(DateTime,Global_active_power,type="l", xlab="",ylab="Global Active Power"))
+with(Power2,plot(DateTime,as.numeric(Voltage),type="l", xlab="",ylab="Global Active Power"))
+with(Power2,plot(DateTime,Sub_metering_1,type="l", xlab="",ylab="Global Active Power"))
+points(Power2$DateTime,Power2$Sub_metering_2,type="l",col="red")
+points(Power2$DateTime,Power2$Sub_metering_3,type="l",col="blue")
+with(Power2,plot(DateTime,as.numeric(Global_reactive_power),type="l", xlab="",ylab="Global Active Power"))
